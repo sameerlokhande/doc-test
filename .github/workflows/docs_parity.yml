@@ -32,12 +32,25 @@ jobs:
       - name: Initialize local inference runtime (Ollama)
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
-          OLLAMA_HOST=0.0.0.0:11434 ollama serve &
-          sleep 5
+          
+          # Stop the auto-started systemd service bound only to localhost
+          sudo systemctl stop ollama || true
+          
+          # Start Ollama bound to all interfaces and allow external bridge origins
+          OLLAMA_HOST=0.0.0.0:11434 OLLAMA_ORIGINS="*" ollama serve &
+          
+          # Wait for the HTTP daemon to become healthy
+          until curl -s http://127.0.0.1:11434/api/tags > /dev/null; do
+            echo "Waiting for Ollama daemon to start..."
+            sleep 1
+          done
+          
           ollama pull qwen2.5-coder:1.5b
 
       - name: Self-Healing Technical Documentation
         uses: sameerlokhande/self-healing-documentations@v1.0.2
+        env:
+          OLLAMA_HOST: "http://172.17.0.1:11434"
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           ollama_host: "http://172.17.0.1:11434"

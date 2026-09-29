@@ -19,6 +19,6 @@ jobs:
           fetch-depth: 0
 
       - name: Self-Healing Technical Documentation
-        uses: sameerlokhande/self-healing-documentations@v1.1.2
+        uses: sameerlokhande/self-healing-documentations@v1.1.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

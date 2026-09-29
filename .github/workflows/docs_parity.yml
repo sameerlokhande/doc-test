@@ -30,7 +30,7 @@ jobs:
           ollama pull qwen2.5-coder:1.5b
 
       - name: Self-Healing Technical Documentation
-        uses: sameerlokhande/self-healing-documentations@v1.0.0
+        uses: sameerlokhande/self-healing-documentations@v1.0.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           ollama_host: "http://172.17.0.1:11434"

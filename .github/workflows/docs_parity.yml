@@ -2,13 +2,7 @@ name: "Documentation Parity"
 
 on:
   push:
-    paths:
-      - "**.py"
-      - "**.md"
   pull_request:
-    paths:
-      - "**.py"
-      - "**.md"
   workflow_dispatch:
 
 permissions:
@@ -25,6 +19,6 @@ jobs:
           fetch-depth: 0
 
       - name: Self-Healing Technical Documentation
-        uses: sameerlokhande/self-healing-documentations@v1.1.0
+        uses: sameerlokhande/self-healing-documentations@v1.1.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

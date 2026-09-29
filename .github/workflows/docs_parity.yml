@@ -8,11 +8,14 @@ on:
     paths:
       - "**.py"
       - "**.md"
+      - ".github/workflows/**"
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
       - "**.py"
       - "**.md"
+      - ".github/workflows/**"
+  workflow_dispatch:
 
 permissions:
   contents: write

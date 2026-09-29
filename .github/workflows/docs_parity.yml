@@ -1,6 +1,13 @@
 name: "Documentation Parity"
 
 on:
+  push:
+    branches:
+      - update-discount-rate
+      - main
+    paths:
+      - "**.py"
+      - "**.md"
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
@@ -19,8 +26,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 2
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
 
       - name: Initialize local inference runtime (Ollama)
         run: |
@@ -43,7 +50,7 @@ jobs:
           if [[ -n $(git status --porcelain "*.md") ]]; then
             git add *.md
             git commit -m "docs(parity): synchronize documentation with code changes [skip ci]"
-            git push
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
           else
             echo "Documentation is synchronized; no updates required."
           fi

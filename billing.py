@@ -3,7 +3,7 @@ from typing import Dict, Any
 def calculate_invoice(
     subtotal: float,
     discount: float = 0.15,
-    tax_rate: float = 0.033,
+    tax_rate: float = 0.034,
     currency: str = "USD"
 ) -> Dict[str, Any]:
     """Calculates comprehensive invoice breakdown with discount and sales tax.
